@@ -35,3 +35,14 @@ jobs:
           file: ./WebApplication6/Dockerfile
           push: true
           tags: tilen7/webapplication6:latest, tilen7/webapplication6:${{ github.sha }}
+
+      - name: Publish
+        run: dotnet publish --configuration Release --no-build --output "${{ github.workspace }}/publish"
+
+      - name: Deploy to Azure Web APP
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: "rgis-test"
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: "${{ github.workspace }}/publish"
+

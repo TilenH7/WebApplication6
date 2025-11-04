@@ -31,22 +31,13 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
-          context: ./WebApplication6
+          context: .
           file: ./WebApplication6/Dockerfile
           push: true
           tags: tilen7/webapplication6:latest, tilen7/webapplication6:${{ github.sha }}
 
-      - name: Restore dependencies
-        run: dotnet restore
-        working-directory: ./WebApplication6
-
-      - name: Build
-        run: dotnet build --configuration Release --no-restore
-        working-directory: ./WebApplication6
-
       - name: Publish
         run: dotnet publish --configuration Release --no-build --output "${{ github.workspace }}/publish"
-        working-directory: ./WebApplication6
 
       - name: Deploy to Azure Web APP
         uses: azure/webapps-deploy@v2

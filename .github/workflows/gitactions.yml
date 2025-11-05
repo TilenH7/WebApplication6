@@ -31,9 +31,26 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
-          context: .
+          context: ./WebApplication6
           file: ./WebApplication6/Dockerfile
           push: true
-          tags: tilen7/webapplication6:latest, tilen7/webapplication6:${{ github.sha }}
+          tags: |
+            tilen7/webapplication6:latest
+            tilen7/webapplication6:${{ github.sha }}
 
+      # (opcijsko, če želiš testirati build)
+      - name: Restore dependencies
+        run: dotnet restore
+        working-directory: ./WebApplication6
 
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+        working-directory: ./WebApplication6
+
+      # 🔹 Azure deploy (za Docker image)
+      - name: Deploy Docker image to Azure Web App
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: "rgis-test" # <-- zamenjaj z imenom tvoje Azure Web App
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          images: "tilen7/webapplication6:latest"

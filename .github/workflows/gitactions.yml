@@ -57,4 +57,4 @@ jobs:
         with:
           app-name: "rgis-test" # <-- zamenjaj z imenom tvoje Azure Web App
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          images: "tilen7/webapplication6:latest"
+          images: "tilen7/webapplication6:${{ github.sha }}"

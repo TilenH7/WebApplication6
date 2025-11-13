@@ -20,7 +20,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Test
-        run: dotnet test --ni-restore --logger:trx
+        run: dotnet test --no-restore --logger:trx
 
       - name: Save test results as artifact
         uses: dorny/test-reporter@v1

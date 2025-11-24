@@ -37,7 +37,7 @@ jobs:
         uses: dorny/test-reporter@v1
         with: 
           name: 'Test results'
-          path: ${{ github.workspace }}/TestResults/*.trx
+          path: ${{ github.workspace }}/WebApplication6.Tests/TestResults/*.trx
           reporter: 'dotnet-trx'
 
       - name: Set up Docker Buildx

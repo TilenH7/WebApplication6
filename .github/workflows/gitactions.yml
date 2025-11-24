@@ -36,7 +36,7 @@ jobs:
       - name: Save test results as artifact
         uses: dorny/test-reporter@v1
         with:
-          artifact: 'Test results'
+          name: 'Test results'
           path: ${{ github.workspace }}/WebApplication6.Tests/TestResults/*.trx
           reporter: 'dotnet-trx'
 

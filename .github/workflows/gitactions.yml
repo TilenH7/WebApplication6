@@ -37,7 +37,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Test results
-          path: ${{ github.workspace }}/WebApplication6.Tests/TestResults/*.trx
+          path: "**/TestResults/**/*.trx"
 
 
       - name: Save test results as artifact

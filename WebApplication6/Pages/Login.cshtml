@@ -1,0 +1,22 @@
+﻿@page
+@model LoginModel
+
+<h2>Prijava</h2>
+
+<form method="post">
+    <div>
+        <label>Uporabniško ime</label>
+        <input asp-for="Username" />
+    </div>
+    <div>
+        <label>Geslo</label>
+        <input asp-for="Password" type="password" />
+    </div>
+
+    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+    {
+        <p style="color:red">@Model.ErrorMessage</p>
+    }
+
+    <button type="submit">Prijava</button>
+</form>

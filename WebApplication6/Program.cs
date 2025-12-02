@@ -2,6 +2,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddSession();   // <-- dodaj
+
 
 var app = builder.Build();
 
@@ -17,6 +19,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseSession();                // <-- dodaj
+
 
 app.UseAuthorization();
 

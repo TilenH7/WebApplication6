@@ -11,14 +11,26 @@ namespace WebApplication6.Pages.Uporabnik
     {
         public string Username { get; set; }
         public List<TerminVadbe> Termini { get; set; } = new();
+        public List<TerminVadbe> MojeRezervacije { get; set; } = new();
 
         public void OnGet()
         {
             Username = HttpContext.Session.GetString("Username") ?? "neznan";
 
-            // samo prihodnji termini, sortirani
+            // razpoložljivi prihodnji termini
             Termini = FakeTerminDb.Termini
                 .Where(t => t.DatumInCas >= DateTime.Now)
+                .OrderBy(t => t.DatumInCas)
+                .ToList();
+
+            // moje rezervacije
+            var mojaRezerviranaIds = FakeRezervacijeDb.Rezervacije
+                .Where(r => r.UporabnikUsername == Username)
+                .Select(r => r.TerminId)
+                .ToList();
+
+            MojeRezervacije = FakeTerminDb.Termini
+                .Where(t => mojaRezerviranaIds.Contains(t.Id))
                 .OrderBy(t => t.DatumInCas)
                 .ToList();
         }

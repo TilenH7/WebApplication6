@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -23,6 +23,7 @@ namespace WebApplication6.Pages.Trener
             // dovolimo samo trenerju
             if (HttpContext.Session.GetString("Role") != UserRole.Trener.ToString())
                 return RedirectToPage("/Login");
+            DatumInCas = DateTime.Now.Date.AddDays(1).AddHours(18);
 
             return Page();
         }
@@ -38,7 +39,7 @@ namespace WebApplication6.Pages.Trener
                 return Page();
             }
 
-            // ? preveri pretekli datum
+            // ✅ preveri pretekli datum
             if (DatumInCas < DateTime.Now)
             {
                 ErrorMessage = "Datum in ura morata biti v prihodnosti.";
@@ -55,7 +56,7 @@ namespace WebApplication6.Pages.Trener
 
             FakeTerminDb.Termini.Add(termin);
 
-            SuccessMessage = "Termin je bil uspe�no dodan.";
+            SuccessMessage = "Termin je bil uspešno dodan.";
             return Page();
         }
     }

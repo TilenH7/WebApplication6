@@ -1,0 +1,20 @@
+﻿@page
+@model WebApplication6.Pages.Uporabnik.RezervirajModel
+
+<h2>Rezervacija termina</h2>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <p style="color:red">@Model.ErrorMessage</p>
+}
+else if (!string.IsNullOrEmpty(Model.SuccessMessage))
+{
+    <p style="color:green">@Model.SuccessMessage</p>
+    <p>
+        Termin: @Model.Termin.DatumInCas.ToString("dd.MM.yyyy HH:mm") – @Model.Termin.Lokacija
+    </p>
+}
+
+<p>
+    <a asp-page="/Uporabnik/Index">Nazaj na moje vadbe</a>
+</p>

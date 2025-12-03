@@ -3,3 +3,32 @@
 
 <h2>Uporabnik – dashboard</h2>
 <p>Pozdravljen, @Model.Username!</p>
+
+<h3>Razpoložljivi termini vadb</h3>
+
+@if (!Model.Termini.Any())
+{
+    <p>Ni razpoložljivih terminov.</p>
+}
+else
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Datum in ura</th>
+                <th>Lokacija</th>
+                <th>Trener</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var t in Model.Termini)
+            {
+                <tr>
+                    <td>@t.DatumInCas.ToString("dd.MM.yyyy HH:mm")</td>
+                    <td>@t.Lokacija</td>
+                    <td>@t.TrenerUsername</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

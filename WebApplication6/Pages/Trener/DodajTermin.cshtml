@@ -1,0 +1,26 @@
+﻿@page
+@model WebApplication6.Pages.Trener.DodajTerminModel
+
+<h2>Dodaj termin vadbe</h2>
+
+<form method="post">
+    <div>
+        <label>Datum in ura</label>
+        <input asp-for="DatumInCas" type="datetime-local" />
+    </div>
+    <div>
+        <label>Lokacija</label>
+        <input asp-for="Lokacija" />
+    </div>
+
+    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+    {
+        <p style="color:red">@Model.ErrorMessage</p>
+    }
+    @if (!string.IsNullOrEmpty(Model.SuccessMessage))
+    {
+        <p style="color:green">@Model.SuccessMessage</p>
+    }
+
+    <button type="submit">Shrani termin</button>
+</form>

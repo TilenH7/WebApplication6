@@ -4,6 +4,20 @@
 <h2>Uporabnik – dashboard</h2>
 <p>Pozdravljen, @Model.Username!</p>
 
+<h3>Iskanje terminov</h3>
+
+<form method="get">
+    <label>Lokacija</label>
+    <input asp-for="SearchLokacija" />
+
+    <label>Datum</label>
+    <input asp-for="SearchDatum" type="date" />
+
+    <button type="submit">Išči</button>
+</form>
+
+<hr />
+
 <!-- ===== Razpoložljivi termini ===== -->
 <h3>Razpoložljivi termini vadb</h3>
 
@@ -45,27 +59,33 @@ else
 
 @if (!Model.MojeRezervacije.Any())
 {
-    <p>Še nimaš rezerviranih terminov.</p>
+        <p>Še nimaš rezerviranih terminov.</p>
 }
 else
 {
-    <table border="1" cellpadding="5">
-        <thead>
-            <tr>
-                <th>Datum in ura</th>
-                <th>Lokacija</th>
-                <th>Trener</th>
-            </tr>
-        </thead>
-        <tbody>
+        <table border="1" cellpadding="5">
+            <thead>
+                <tr>
+                    <th>Datum in ura</th>
+                    <th>Lokacija</th>
+                    <th>Trener</th>
+                    <th>Akcija</th>
+                </tr>
+            </thead>
+            <tbody>
             @foreach (var t in Model.MojeRezervacije)
             {
-                <tr>
-                    <td>@t.DatumInCas.ToString("dd.MM.yyyy HH:mm")</td>
-                    <td>@t.Lokacija</td>
-                    <td>@t.TrenerUsername</td>
-                </tr>
+                    <tr>
+                        <td>@t.DatumInCas.ToString("dd.MM.yyyy HH:mm")</td>
+                        <td>@t.Lokacija</td>
+                        <td>@t.TrenerUsername</td>
+                        <td>
+                            <a asp-page="/Uporabnik/Preklici" asp-route-terminId="@t.Id">
+                                Prekliči
+                            </a>
+                        </td>
+                    </tr>
             }
-        </tbody>
-    </table>
+            </tbody>
+        </table>
 }

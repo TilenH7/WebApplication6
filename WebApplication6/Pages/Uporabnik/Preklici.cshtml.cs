@@ -6,7 +6,7 @@ using WebApplication6.Models;
 
 namespace WebApplication6.Pages.Uporabnik
 {
-    public class RezervirajModel : PageModel
+    public class PrekliciModel : PageModel
     {
         public string ErrorMessage { get; set; }
         public string SuccessMessage { get; set; }
@@ -28,37 +28,23 @@ namespace WebApplication6.Pages.Uporabnik
                 return Page();
             }
 
-            // 🔹 preveri kapaciteto
-            if (Termin.ZasedenaMesta >= Termin.Kapaciteta)
-            {
-                ErrorMessage = "Termin je že poln.";
-                return Page();
-            }
-
-            // 🔹 preveri, če je uporabnik že prijavljen
-            var existing = FakeRezervacijeDb.Rezervacije
+            var rezervacija = FakeRezervacijeDb.Rezervacije
                 .FirstOrDefault(r => r.TerminId == terminId && r.UporabnikUsername == username);
 
-            if (existing != null)
+            if (rezervacija == null)
             {
-                ErrorMessage = "Na ta termin si že prijavljen.";
+                ErrorMessage = "Za ta termin nimaš rezervacije.";
                 return Page();
             }
 
-            // 🔹 ustvarimo rezervacijo
-            var rezervacija = new Rezervacija
-            {
-                Id = FakeRezervacijeDb.Rezervacije.Count + 1,
-                TerminId = terminId,
-                UporabnikUsername = username
-            };
+            // 🔹 odstranimo rezervacijo
+            FakeRezervacijeDb.Rezervacije.Remove(rezervacija);
 
-            FakeRezervacijeDb.Rezervacije.Add(rezervacija);
+            // 🔹 sprostimo mesto
+            if (Termin.ZasedenaMesta > 0)
+                Termin.ZasedenaMesta--;
 
-            // 🔹 povečamo zasedena mesta
-            Termin.ZasedenaMesta++;
-
-            SuccessMessage = "Uspešno si rezerviral termin.";
+            SuccessMessage = "Rezervacija uspešno preklicana.";
             return Page();
         }
     }

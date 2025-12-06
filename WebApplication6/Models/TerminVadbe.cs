@@ -9,6 +9,10 @@ namespace WebApplication6.Models
         public string TrenerUsername { get; set; }
         public DateTime DatumInCas { get; set; }
         public string Lokacija { get; set; }
+
+        // nova polja
+        public int Kapaciteta { get; set; } = 10;     // max št. mest
+        public int ZasedenaMesta { get; set; } = 0;   // trenutno zasedenih mest
     }
 
     public static class FakeTerminDb
@@ -19,9 +23,19 @@ namespace WebApplication6.Models
             {
                 Id = 1,
                 TrenerUsername = "trener1",
-                DatumInCas = new DateTime(2069, 1, 1, 18, 0, 0), // 1.1.2069 ob 18:00
-                Lokacija = "Ljubljana - vnaprej definiran termin"
-            }
+                DatumInCas = new DateTime(2069, 1, 1, 18, 0, 0),
+                Lokacija = "Ljubljana - vnaprej definiran termin",
+                Kapaciteta = 10,
+                ZasedenaMesta = 0
+            },
+              new TerminVadbe
+                {
+                    Id = 2,
+                    TrenerUsername = "trener1",
+                    DatumInCas = new DateTime(2069, 1, 2, 18, 0, 0),
+                    Lokacija = "Maribor"
+                },
+
         };
     }
 }

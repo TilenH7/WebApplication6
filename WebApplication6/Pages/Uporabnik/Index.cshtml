@@ -44,8 +44,15 @@ else
                     <td>@t.Lokacija</td>
                     <td>@t.TrenerUsername</td>
                     <td>
-                        <a asp-page="/Uporabnik/Rezerviraj" asp-route-terminId="@t.Id">Rezerviraj</a>
+                        <a asp-page="/Uporabnik/Rezerviraj" asp-route-terminId="@t.Id">
+                            Rezerviraj
+                        </a>
+                        |
+                        <a asp-page="/Trener/Profil" asp-route-trener="@t.TrenerUsername">
+                            Profil trenerja
+                        </a>
                     </td>
+
                 </tr>
             }
         </tbody>

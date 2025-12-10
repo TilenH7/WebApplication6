@@ -83,7 +83,12 @@ else
                             <a asp-page="/Uporabnik/Preklici" asp-route-terminId="@t.Id">
                                 Prekliči
                             </a>
+                                |
+                            <a asp-page="/Uporabnik/Oceni" asp-route-trener="@t.TrenerUsername">
+                                Oceni trenerja
+                            </a>
                         </td>
+
                     </tr>
             }
             </tbody>

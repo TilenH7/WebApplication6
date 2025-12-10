@@ -1,0 +1,20 @@
+﻿@page
+@model WebApplication6.Pages.Uporabnik.OceniModel
+
+<h2>Oceni trenerja @Model.TrenerUsername</h2>
+
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <p>@Model.Message</p>
+}
+
+<form method="post">
+    <label>Ocena (1–5)</label>
+    <input type="number" asp-for="Ocena" min="1" max="5" />
+
+    <label>Komentar</label>
+    <textarea asp-for="Komentar"></textarea>
+
+    <button type="submit">Oddaj oceno</button>
+</form>
+

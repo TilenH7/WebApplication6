@@ -1,0 +1,23 @@
+﻿@page
+@model WebApplication6.Pages.Trener.ProfilModel
+
+<h2>Profil trenerja: @Model.TrenerUsername</h2>
+
+<h3>Ocene</h3>
+
+@if (!Model.Ocene.Any())
+{
+    <p>Ta trener še nima ocen.</p>
+}
+else
+{
+    <ul>
+        @foreach (var o in Model.Ocene)
+        {
+            <li>
+                ⭐ @o.Ocena/5 — @o.Komentar (od @o.UporabnikUsername)
+            </li>
+        }
+    </ul>
+}
+

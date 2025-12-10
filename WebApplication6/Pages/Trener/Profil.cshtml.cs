@@ -27,7 +27,6 @@ namespace WebApplication6.Pages.Trener
             if (oceneTrenerja.Any())
             {
                 PovprecnaOcena = oceneTrenerja.Average(o => o.Ocena);
-                // zadnjih nekaj komentarjev (recimo 3)
                 ZadnjeOcene = oceneTrenerja
                     .OrderByDescending(o => o.Id)
                     .Take(3)

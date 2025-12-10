@@ -1,0 +1,63 @@
+﻿@page
+@model WebApplication6.Pages.Trener.TerminiModel
+
+<h2>Pregled terminov in rezervacij</h2>
+
+<h3>Filter po datumu</h3>
+
+
+
+
+<form method="get">
+    <label>Od</label>
+    <input asp-for="FilterOd" type="date" />
+
+    <label>Do</label>
+    <input asp-for="FilterDo" type="date" />
+
+    <button type="submit">Filtriraj</button>
+</form>
+
+<hr />
+
+@if (!Model.Termini.Any())
+{
+    <p>Ni prihajajočih terminov.</p>
+}
+else
+{
+    <table border="1" cellpadding="5">
+        <thead>
+            <tr>
+                <th>Datum in ura</th>
+                <th>Lokacija</th>
+                <th>Prijavljeni uporabniki</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var t in Model.Termini)
+            {
+                var users = Model.GetUporabnikiZaTermin(t.Id);
+                <tr>
+                    <td>@t.DatumInCas.ToString("dd.MM.yyyy HH:mm")</td>
+                    <td>@t.Lokacija</td>
+                    <td>
+                        @if (!users.Any())
+                        {
+                            <span>Ni prijav.</span>
+                        }
+                        else
+                        {
+                            <ul>
+                                @foreach (var u in users)
+                                {
+                                    <li>@u</li>
+                                }
+                            </ul>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

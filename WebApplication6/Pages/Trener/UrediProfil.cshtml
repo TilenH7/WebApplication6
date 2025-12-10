@@ -1,0 +1,43 @@
+﻿@page
+@model WebApplication6.Pages.Trener.UrediProfilModel
+
+<h2>Uredi profil</h2>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <p style="color:red">@Model.ErrorMessage</p>
+}
+
+<form method="post">
+    <div>
+        <label>Ime *</label>
+        <input asp-for="Ime" />
+    </div>
+
+    <div>
+        <label>Opis</label>
+        <textarea asp-for="Opis"></textarea>
+    </div>
+
+    <div>
+        <label>Specializacije</label>
+        <input asp-for="Specializacije" />
+    </div>
+
+    <div>
+        <label>Lokacija</label>
+        <input asp-for="Lokacija" />
+    </div>
+
+    <div>
+        <label>Cena na uro (€)</label>
+        <input asp-for="CenaNaUro" type="number" step="0.01" />
+    </div>
+
+    <div>
+        <label>URL slike</label>
+        <input asp-for="SlikaUrl" />
+    </div>
+
+    <button type="submit">Shrani</button>
+</form>

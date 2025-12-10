@@ -1,31 +1,36 @@
 ﻿@page
 @model WebApplication6.Pages.Trener.ProfilModel
 
-<h2>Profil trenerja: @Model.Trener?.Ime (@Model.Trener?.Username)</h2>
-
 @if (Model.Trener == null)
 {
-    <p>Trener ni bil najden.</p>
+    <h2>Trener ni bil najden.</h2>
 }
 else
 {
+    <h2>Profil trenerja: @Model.Trener.Ime (@Model.Trener.Username)</h2>
+
     <h3>Osnovni podatki</h3>
     <p><strong>Lokacija:</strong> @Model.Trener.Lokacija</p>
     <p><strong>Specializacije:</strong> @Model.Trener.Specializacije</p>
     <p><strong>Opis:</strong> @Model.Trener.Opis</p>
+    <p>
+        <strong>Cena na uro:</strong>
+        @(Model.Trener.CenaNaUro.HasValue? Model.Trener.CenaNaUro.Value + " €" : "Ni določeno")
+    </p>
+
+    @if (!string.IsNullOrEmpty(Model.Trener.SlikaUrl))
+    {
+        <img src="@Model.Trener.SlikaUrl" alt="Slika trenerja" style="max-width:200px" />
+    }
 
     <h3>Ocene</h3>
     @if (Model.PovprecnaOcena.HasValue)
     {
         <p><strong>Povprečna ocena:</strong> @Model.PovprecnaOcena.Value.ToString("0.0") / 5</p>
-
-        <h4>Zadnji komentarji</h4>
         <ul>
             @foreach (var o in Model.ZadnjeOcene)
             {
-                <li>
-                    ⭐ @o.Ocena/5 – @o.Komentar (od @o.UporabnikUsername)
-                </li>
+                <li>⭐ @o.Ocena/5 – @o.Komentar (od @o.UporabnikUsername)</li>
             }
         </ul>
     }

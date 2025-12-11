@@ -33,13 +33,6 @@ jobs:
       - name: Test
         run: dotnet test --no-restore --logger:trx
 
-      - name: Upload test results
-        uses: actions/upload-artifact@v4
-        with:
-          name: Test results
-          path: "**/TestResults/**/*.trx"
-
-
       - name: Save test results as artifact
         uses: dorny/test-reporter@v1
         with:

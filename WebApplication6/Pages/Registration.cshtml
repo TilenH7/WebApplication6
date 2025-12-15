@@ -1,0 +1,41 @@
+﻿@page
+@using WebApplication6.Models
+@model WebApplication6.Pages.RegisterModel
+
+<h2>Registracija</h2>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <p style="color:red">@Model.ErrorMessage</p>
+}
+
+@if (!string.IsNullOrEmpty(Model.SuccessMessage))
+{
+    <p style="color:green">@Model.SuccessMessage</p>
+}
+
+<form method="post">
+    <div>
+        <label>Ime</label>
+        <input asp-for="Ime" />
+    </div>
+
+    <div>
+        <label>E-mail</label>
+        <input asp-for="Email" type="email" />
+    </div>
+
+    <div>
+        <label>Geslo</label>
+        <input asp-for="Password" type="password" />
+    </div>
+
+    <div>
+        <label>Vloga</label>
+        <select asp-for="Role" asp-items="Html.GetEnumSelectList<UserRole>()"></select>
+    </div>
+
+    <button type="submit">Ustvari račun</button>
+</form>
+
+<p><a asp-page="/Login">Že imaš račun? Prijava</a></p>

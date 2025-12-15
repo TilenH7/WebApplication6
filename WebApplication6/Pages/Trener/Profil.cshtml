@@ -13,10 +13,22 @@ else
     <p><strong>Lokacija:</strong> @Model.Trener.Lokacija</p>
     <p><strong>Specializacije:</strong> @Model.Trener.Specializacije</p>
     <p><strong>Opis:</strong> @Model.Trener.Opis</p>
-    <p>
-        <strong>Cena na uro:</strong>
-        @(Model.Trener.CenaNaUro.HasValue? Model.Trener.CenaNaUro.Value + " €" : "Ni določeno")
-    </p>
+    <h3>Cene vadb</h3>
+
+    @if (Model.PovprecnaCena.HasValue)
+    {
+        <p><b>Povprečna cena (na podlagi terminov):</b> @Model.PovprecnaCena.Value.ToString("0.00") €</p>
+
+        @if (Model.NajnizjaCena.HasValue && Model.NajvisjaCena.HasValue)
+        {
+            <p><b>Razpon cen:</b> od @Model.NajnizjaCena.Value.ToString("0.00") € do @Model.NajvisjaCena.Value.ToString("0.00") €</p>
+        }
+    }
+    else
+    {
+        <p>Ta trener še nima terminov s ceno.</p>
+    }
+
 
     @if (!string.IsNullOrEmpty(Model.Trener.SlikaUrl))
     {

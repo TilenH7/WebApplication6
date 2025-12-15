@@ -32,6 +32,7 @@ else
                 <th>Datum in ura</th>
                 <th>Lokacija</th>
                 <th>Prijavljeni uporabniki</th>
+                <th>Cena</th>
                 <th>Akcije</th>
             </tr>
         </thead>
@@ -42,21 +43,8 @@ else
                 <tr>
                     <td>@t.DatumInCas.ToString("dd.MM.yyyy HH:mm")</td>
                     <td>@t.Lokacija</td>
-                    <td>
-                        @if (!users.Any())
-                        {
-                            <span>Ni prijav.</span>
-                        }
-                        else
-                        {
-                            <ul>
-                                @foreach (var u in users)
-                                {
-                                    <li>@u</li>
-                                }
-                            </ul>
-                        }
-                    </td>
+                    <td> ... </td>
+                    <td>@t.Cena.ToString("0.00") €</td>
                     <td>
                         <a asp-page="/Trener/UrediTermin" asp-route-id="@t.Id">Uredi</a> |
                         <a asp-page="/Trener/IzbrisiTermin" asp-route-id="@t.Id">Izbriši</a>
@@ -64,6 +52,8 @@ else
                 </tr>
             }
         </tbody>
+
+           
     </table>
 
 }

@@ -7,3 +7,13 @@
 <p><a asp-page="/Trener/UrediProfil">Uredi profil</a></p>
 <p><a asp-page="/Trener/DodajTermin">Dodaj nov termin</a></p>
 <p><a asp-page="/Trener/Termini">Pregled terminov in rezervacij</a></p>
+<h3>Cene vadb</h3>
+@if (Model.NajnizjaCena.HasValue)
+{
+    <p>Cene vadb: od @Model.NajnizjaCena.Value.ToString("0.00") € do @Model.NajvisjaCena.Value.ToString("0.00") €</p>
+}
+else
+{
+    <p>Še nimaš nastavljenih terminov z ceno.</p>
+}
+

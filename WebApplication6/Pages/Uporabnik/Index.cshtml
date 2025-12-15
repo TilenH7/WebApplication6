@@ -71,33 +71,35 @@ else
 else
 {
         <table border="1" cellpadding="5">
-            <thead>
-                <tr>
-                    <th>Datum in ura</th>
-                    <th>Lokacija</th>
-                    <th>Trener</th>
-                    <th>Akcija</th>
-                </tr>
-            </thead>
-            <tbody>
-            @foreach (var t in Model.MojeRezervacije)
+        <thead>
+            <tr>
+                <th>Datum in ura</th>
+                <th>Lokacija</th>
+                <th>Trener</th>
+                <th>Cena</th>
+                <th>Akcija</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var t in Model.Termini)
             {
-                    <tr>
-                        <td>@t.DatumInCas.ToString("dd.MM.yyyy HH:mm")</td>
-                        <td>@t.Lokacija</td>
-                        <td>@t.TrenerUsername</td>
-                        <td>
-                            <a asp-page="/Uporabnik/Preklici" asp-route-terminId="@t.Id">
-                                Prekliči
-                            </a>
-                                |
-                            <a asp-page="/Uporabnik/Oceni" asp-route-trener="@t.TrenerUsername">
-                                Oceni trenerja
-                            </a>
-                        </td>
-
-                    </tr>
+                <tr>
+                    <td>@t.DatumInCas.ToString("dd.MM.yyyy HH:mm")</td>
+                    <td>@t.Lokacija</td>
+                    <td>@t.TrenerUsername</td>
+                    <td>@t.Cena.ToString("0.00") €</td>
+                    <td>
+                        <a asp-page="/Uporabnik/Rezerviraj" asp-route-terminId="@t.Id">
+                            Rezerviraj
+                        </a>
+                        |
+                        <a asp-page="/Trener/Profil" asp-route-trener="@t.TrenerUsername">
+                            Profil trenerja
+                        </a>
+                    </td>
+                </tr>
             }
-            </tbody>
+        </tbody>
+
         </table>
 }

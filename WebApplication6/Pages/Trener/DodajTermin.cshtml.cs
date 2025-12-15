@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Http;
@@ -15,15 +14,19 @@ namespace WebApplication6.Pages.Trener
         [BindProperty]
         public string Lokacija { get; set; }
 
+        [BindProperty]
+        public decimal Cena { get; set; }
+
         public string ErrorMessage { get; set; }
         public string SuccessMessage { get; set; }
 
         public IActionResult OnGet()
         {
-            // dovolimo samo trenerju
             if (HttpContext.Session.GetString("Role") != UserRole.Trener.ToString())
                 return RedirectToPage("/Login");
+
             DatumInCas = DateTime.Now.Date.AddDays(1).AddHours(18);
+            Cena = 10m;
 
             return Page();
         }
@@ -39,10 +42,15 @@ namespace WebApplication6.Pages.Trener
                 return Page();
             }
 
-            // ✅ preveri pretekli datum
             if (DatumInCas < DateTime.Now)
             {
                 ErrorMessage = "Datum in ura morata biti v prihodnosti.";
+                return Page();
+            }
+
+            if (Cena <= 0)
+            {
+                ErrorMessage = "Cena mora biti večja od 0.";
                 return Page();
             }
 
@@ -51,13 +59,20 @@ namespace WebApplication6.Pages.Trener
                 Id = FakeTerminDb.Termini.Count + 1,
                 TrenerUsername = HttpContext.Session.GetString("Username"),
                 DatumInCas = DatumInCas,
-                Lokacija = Lokacija
+                Lokacija = Lokacija,
+                Cena = Cena
             };
 
             FakeTerminDb.Termini.Add(termin);
 
-            SuccessMessage = "Termin je bil uspešno dodan.";
-            return Page();
+            // če želiš pokazat message na naslednji strani:
+            TempData["Success"] = "Termin je bil uspešno dodan.";
+
+            return RedirectToPage("/Trener/Termini");
+
+            // Če želiš takoj nazaj na seznam:
+            // TempData["Success"] = "Termin je bil uspešno dodan.";
+            // return RedirectToPage("/Trener/Termini");
         }
     }
 }

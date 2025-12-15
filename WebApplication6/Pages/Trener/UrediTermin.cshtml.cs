@@ -12,6 +12,7 @@ namespace WebApplication6.Pages.Trener
         [BindProperty] public int Id { get; set; }
         [BindProperty] public DateTime DatumInCas { get; set; }
         [BindProperty] public string Lokacija { get; set; }
+        [BindProperty] public decimal Cena { get; set; }
 
         public string ErrorMessage { get; set; }
 
@@ -33,6 +34,7 @@ namespace WebApplication6.Pages.Trener
             Id = termin.Id;
             DatumInCas = termin.DatumInCas;
             Lokacija = termin.Lokacija;
+            Cena = termin.Cena;
 
             return Page();
         }
@@ -49,10 +51,15 @@ namespace WebApplication6.Pages.Trener
                 return Page();
             }
 
-            // ❌ preveri, da ni preteklost
             if (DatumInCas < DateTime.Now)
             {
                 ErrorMessage = "Datum in ura morata biti v prihodnosti.";
+                return Page();
+            }
+
+            if (Cena <= 0)
+            {
+                ErrorMessage = "Cena mora biti večja od 0.";
                 return Page();
             }
 
@@ -65,11 +72,11 @@ namespace WebApplication6.Pages.Trener
                 return Page();
             }
 
-            // ✅ posodobitev
+            // dejanska posodobitev
             termin.DatumInCas = DatumInCas;
             termin.Lokacija = Lokacija;
+            termin.Cena = Cena;
 
-            // po uspešni posodobitvi nazaj na seznam terminov
             return RedirectToPage("/Trener/Termini");
         }
     }

@@ -1,0 +1,29 @@
+﻿@page
+@model WebApplication6.Pages.Trener.UrediTerminModel
+
+<h2>Uredi termin</h2>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <p style="color:red">@Model.ErrorMessage</p>
+}
+
+<form method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <div>
+        <label>Datum in ura</label>
+        <input asp-for="DatumInCas" type="datetime-local" />
+    </div>
+
+    <div>
+        <label>Lokacija</label>
+        <input asp-for="Lokacija" />
+    </div>
+
+    <button type="submit">Shrani spremembe</button>
+</form>
+
+<p>
+    <a asp-page="/Trener/Termini">Nazaj na seznam terminov</a>
+</p>

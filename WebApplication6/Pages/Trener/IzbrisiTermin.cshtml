@@ -1,0 +1,22 @@
+﻿@page
+@model WebApplication6.Pages.Trener.IzbrisiTerminModel
+
+<h2>Izbriši termin</h2>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage) || Model.Termin == null)
+{
+    <p style="color:red">@Model.ErrorMessage</p>
+}
+else
+{
+    <p>Ali res želiš izbrisati ta termin?</p>
+    <p>
+        @Model.Termin.DatumInCas.ToString("dd.MM.yyyy HH:mm") –
+        @Model.Termin.Lokacija
+    </p>
+
+    <form method="post">
+        <button type="submit">Da, izbriši</button>
+        <a asp-page="/Trener/Termini">Prekliči</a>
+    </form>
+}

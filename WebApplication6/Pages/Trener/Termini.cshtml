@@ -32,6 +32,7 @@ else
                 <th>Datum in ura</th>
                 <th>Lokacija</th>
                 <th>Prijavljeni uporabniki</th>
+                <th>Akcije</th>
             </tr>
         </thead>
         <tbody>
@@ -56,8 +57,13 @@ else
                             </ul>
                         }
                     </td>
+                    <td>
+                        <a asp-page="/Trener/UrediTermin" asp-route-id="@t.Id">Uredi</a> |
+                        <a asp-page="/Trener/IzbrisiTermin" asp-route-id="@t.Id">Izbriši</a>
+                    </td>
                 </tr>
             }
         </tbody>
     </table>
+
 }

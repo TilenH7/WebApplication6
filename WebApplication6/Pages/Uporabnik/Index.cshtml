@@ -100,11 +100,12 @@ else
                     <td>
                         <a asp-page="/Uporabnik/Preklici" asp-route-terminId="@t.Id">Odstrani rezervacijo</a>
                     </td>
-                    <td>
-                        <a asp-page="/Uporabnik/Oceni" asp-route-terminId="@t.Id">
-                            Oceni
-                        </a>
-                    </td>
+                     <td>
+                    <a asp-page="/Uporabnik/Oceni" asp-route-trener="@t.TrenerUsername">
+                        Oceni
+                    </a>
+					</td>
+
 
                 </tr>
             }

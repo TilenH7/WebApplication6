@@ -1,0 +1,48 @@
+﻿@page
+@model WebApplication6.Pages.Trener.OceneModel
+
+<h2>Ocene in komentarji</h2>
+
+<form method="get">
+    <label>Filter po oceni:</label>
+    <select asp-for="FilterOcena">
+        <option value="">Vse</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select>
+    <button type="submit">Filtriraj</button>
+</form>
+
+<hr />
+
+@if (!Model.Ocene.Any())
+{
+    <p>Ni ocen.</p>
+}
+else
+{
+    <table border="1" cellpadding="5">
+        <thead>
+            <tr>
+                <th>Datum</th>
+                <th>Ocena</th>
+                <th>Komentar</th>
+                <th>Uporabnik</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var o in Model.Ocene)
+            {
+                <tr>
+                    <td>@o.Datum.ToString("dd.MM.yyyy HH:mm")</td>
+                    <td>@o.Ocena</td>
+                    <td>@o.Komentar</td>
+                    <td>@o.UporabnikUsername</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

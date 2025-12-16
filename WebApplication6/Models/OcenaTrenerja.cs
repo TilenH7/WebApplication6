@@ -10,6 +10,8 @@ namespace WebApplication6.Models
         public string UporabnikUsername { get; set; }
         public int Ocena { get; set; } // 1–5
         public string Komentar { get; set; }
+
+        public DateTime Datum { get; set; }
     }
 
     public static class FakeOceneDb

@@ -17,6 +17,7 @@ namespace WebApplication6.Pages.Uporabnik
         public string TrenerUsername { get; set; }
         public string Message { get; set; }
 
+        public DateTime Datum { get; set; }
         public IActionResult OnGet(string trener)
         {
             if (string.IsNullOrEmpty(trener))
@@ -42,7 +43,10 @@ namespace WebApplication6.Pages.Uporabnik
                 TrenerUsername = trener,
                 UporabnikUsername = HttpContext.Session.GetString("Username"),
                 Ocena = Ocena,
-                Komentar = Komentar
+                Komentar = Komentar,
+                Datum = DateTime.Now
+
+
             };
 
             FakeOceneDb.Ocene.Add(ocen);

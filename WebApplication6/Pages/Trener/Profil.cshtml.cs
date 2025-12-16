@@ -3,6 +3,7 @@ using WebApplication6.Models;
 using System.Linq;
 using System.Collections.Generic;
 using System;
+using Microsoft.AspNetCore.Http; // ⬅️ DODAJ TO
 
 namespace WebApplication6.Pages.Trener
 {
@@ -14,10 +15,14 @@ namespace WebApplication6.Pages.Trener
         public List<OcenaTrenerja> ZadnjeOcene { get; set; } = new();
         public List<TerminVadbe> PrihajajociTermini { get; set; } = new();
 
-        // 💰 NOVO:
+        // 💰 cene iz terminov
         public decimal? PovprecnaCena { get; set; }
         public decimal? NajnizjaCena { get; set; }
         public decimal? NajvisjaCena { get; set; }
+
+        // 💚 sledenje
+        public bool JePrijavljenUporabnik { get; set; }
+        public bool TrenutniUporabnikSledi { get; set; }
 
         public void OnGet(string trener)
         {
@@ -27,7 +32,6 @@ namespace WebApplication6.Pages.Trener
 
             if (Trener == null)
             {
-                // če ni trenerja, lahko samo pustimo prazno / 404, odvisno kaj želiš
                 return;
             }
 
@@ -52,7 +56,7 @@ namespace WebApplication6.Pages.Trener
                 .OrderBy(t => t.DatumInCas)
                 .ToList();
 
-            // 💰 CENE – vzemi VSE njegove termine s ceno > 0 (ne samo prihodnje)
+            // 💰 cene iz terminov
             var terminiSCenami = FakeTerminDb.Termini
                 .Where(t => t.TrenerUsername == trener && t.Cena > 0)
                 .ToList();
@@ -65,8 +69,20 @@ namespace WebApplication6.Pages.Trener
             }
             else
             {
-                // fallback: če še nima terminov s ceno, lahko uporabiš CenaNaUro iz profila
                 PovprecnaCena = Trener.CenaNaUro;
+            }
+
+            // 💚 sledenje – preverimo trenutno prijavljenega uporabnika
+            var role = HttpContext.Session.GetString("Role");
+            var username = HttpContext.Session.GetString("Username");
+
+            if (role == UserRole.Uporabnik.ToString() && !string.IsNullOrEmpty(username))
+            {
+                JePrijavljenUporabnik = true;
+
+                TrenutniUporabnikSledi = FakeSledenjeDb.Sledenja
+                    .Any(s => s.UporabnikUsername == username &&
+                              s.TrenerUsername == trener);
             }
         }
     }

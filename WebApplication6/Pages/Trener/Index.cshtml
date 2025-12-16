@@ -4,8 +4,30 @@
 <h2>Trener – dashboard</h2>
 <p>Pozdravljen, @Model.Username!</p>
 
-<p><a asp-page="/Trener/UrediProfil">Uredi profil</a></p>
-<p><a asp-page="/Trener/DodajTermin">Dodaj nov termin</a></p>
+<h3>Cene mojih vadb</h3>
+@if (Model.NajnizjaCena.HasValue && Model.NajvisjaCena.HasValue)
+{
+    <p>
+        Cene terminov: od
+        @Model.NajnizjaCena.Value.ToString("0.00") €
+        do
+        @Model.NajvisjaCena.Value.ToString("0.00") €
+    </p>
+}
+else
+{
+    <p>Še nimaš terminov s ceno.</p>
+}
+
+<hr />
+
+
+
+<p>
+    <a asp-page="/Trener/Termini">Moji termini</a> |
+    <a asp-page="/Trener/DodajTermin">Dodaj nov termin</a>
+</p>
+
 <p><a asp-page="/Trener/Termini">Pregled terminov in rezervacij</a></p>
 <h3>Cene vadb</h3>
 @if (Model.NajnizjaCena.HasValue)
@@ -17,3 +39,19 @@ else
     <p>Še nimaš nastavljenih terminov z ceno.</p>
 }
 
+<h3>Uporabniki, ki ti sledijo</h3>
+@if (!Model.Sledilci.Any())
+{
+    <p>Trenutno ti ne sledi noben uporabnik.</p>
+}
+else
+{
+    <ul>
+        @foreach (var u in Model.Sledilci)
+        {
+            <li>@u</li>
+        }
+    </ul>
+}
+
+<hr />

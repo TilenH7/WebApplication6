@@ -9,6 +9,29 @@ else
 {
     <h2>Profil trenerja: @Model.Trener.Ime (@Model.Trener.Username)</h2>
 
+    @if (Model.JePrijavljenUporabnik)
+    {
+        @if (Model.TrenutniUporabnikSledi)
+        {
+            <p>
+                <a asp-page="/Uporabnik/NehajSleditiTrenerja"
+                   asp-route-trenerUsername="@Model.Trener.Username">
+                    Nehaj slediti
+                </a>
+            </p>
+        }
+        else
+        {
+            <p>
+                <a asp-page="/Uporabnik/SlediTrenerja"
+                   asp-route-trenerUsername="@Model.Trener.Username">
+                    Sledi trenerju
+                </a>
+            </p>
+        }
+    }
+
+
     <h3>Osnovni podatki</h3>
     <p><strong>Lokacija:</strong> @Model.Trener.Lokacija</p>
     <p><strong>Specializacije:</strong> @Model.Trener.Specializacije</p>

@@ -3,6 +3,10 @@
 
 <h2>Uporabnik – dashboard</h2>
 <p>Pozdravljen, @Model.Username!</p>
+<p>
+    <a asp-page="/Uporabnik/SledeniTrenerji">Trenerji, ki jim sledim</a>
+</p>
+
 
 <h3>Iskanje terminov</h3>
 
@@ -32,6 +36,7 @@ else
             <tr>
                 <th>Datum in ura</th>
                 <th>Lokacija</th>
+                <th>Cena</th>
                 <th>Trener</th>
                 <th>Akcija</th>
             </tr>
@@ -42,6 +47,7 @@ else
                 <tr>
                     <td>@t.DatumInCas.ToString("dd.MM.yyyy HH:mm")</td>
                     <td>@t.Lokacija</td>
+                    <td>@t.Cena.ToString("0.00") €</td>
                     <td>@t.TrenerUsername</td>
                     <td>
                         <a asp-page="/Uporabnik/Rezerviraj" asp-route-terminId="@t.Id">
@@ -51,6 +57,9 @@ else
                         <a asp-page="/Trener/Profil" asp-route-trener="@t.TrenerUsername">
                             Profil trenerja
                         </a>
+                        |
+
+
                     </td>
 
                 </tr>
@@ -81,7 +90,7 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var t in Model.Termini)
+            @foreach (var t in Model.MojeRezervacije)
             {
                 <tr>
                     <td>@t.DatumInCas.ToString("dd.MM.yyyy HH:mm")</td>
@@ -89,16 +98,17 @@ else
                     <td>@t.TrenerUsername</td>
                     <td>@t.Cena.ToString("0.00") €</td>
                     <td>
-                        <a asp-page="/Uporabnik/Rezerviraj" asp-route-terminId="@t.Id">
-                            Rezerviraj
-                        </a>
-                        |
-                        <a asp-page="/Trener/Profil" asp-route-trener="@t.TrenerUsername">
-                            Profil trenerja
+                        <a asp-page="/Uporabnik/Preklici" asp-route-terminId="@t.Id">Odstrani rezervacijo</a>
+                    </td>
+                    <td>
+                        <a asp-page="/Uporabnik/Oceni" asp-route-terminId="@t.Id">
+                            Oceni
                         </a>
                     </td>
+
                 </tr>
             }
+
         </tbody>
 
         </table>

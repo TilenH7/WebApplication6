@@ -43,7 +43,7 @@ else
                 <tr>
                     <td>@t.DatumInCas.ToString("dd.MM.yyyy HH:mm")</td>
                     <td>@t.Lokacija</td>
-                    <td> ... </td>
+                    <td>@string.Join(", ", Model.GetUporabnikiZaTermin(t.Id))</td>
                     <td>@t.Cena.ToString("0.00") €</td>
                     <td>
                         <a asp-page="/Trener/UrediTermin" asp-route-id="@t.Id">Uredi</a> |

@@ -1,0 +1,43 @@
+﻿@page
+@model WebApplication6.Pages.Uporabnik.SledeniTrenerjiModel
+
+<h2>Trenerji, ki jim sledim</h2>
+
+@if (!Model.Trenerji.Any())
+{
+    <p>Trenutno ne slediš nobenemu trenerju.</p>
+}
+else
+{
+    <table border="1" cellpadding="5">
+        <thead>
+            <tr>
+                <th>Ime</th>
+                <th>Lokacija</th>
+                <th>Specializacije</th>
+                <th>Akcije</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var t in Model.Trenerji)
+            {
+                <tr>
+                    <td>@t.Ime (@t.Username)</td>
+                    <td>@t.Lokacija</td>
+                    <td>@t.Specializacije</td>
+                    <td>
+                        <a asp-page="/Trener/Profil" asp-route-trener="@t.Username">
+                            Odpri profil
+                        </a>
+                        |
+                        <a asp-page="/Uporabnik/NehajSleditiTrenerja"
+                           asp-route-trenerUsername="@t.Username"
+                           asp-route-redirectTo="lista">
+                            Nehaj slediti
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

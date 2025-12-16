@@ -11,6 +11,7 @@ namespace WebApplication6.Pages.Trener
 
         public decimal? NajnizjaCena { get; set; }
         public decimal? NajvisjaCena { get; set; }
+        public List<string> Sledilci { get; set; } = new();
 
         public void OnGet()
         {
@@ -25,6 +26,11 @@ namespace WebApplication6.Pages.Trener
                 NajnizjaCena = mojiTermini.Min(t => t.Cena);
                 NajvisjaCena = mojiTermini.Max(t => t.Cena);
             }
+            Sledilci = FakeSledenjeDb.Sledenja
+                .Where(s => s.TrenerUsername == Username)
+                .Select(s => s.UporabnikUsername)
+                .Distinct()
+                .ToList();
         }
     }
 }

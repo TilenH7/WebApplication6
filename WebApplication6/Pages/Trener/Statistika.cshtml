@@ -1,0 +1,25 @@
+﻿@page
+@model WebApplication6.Pages.Trener.StatistikaModel
+
+<h2>Statistika trenerja</h2>
+
+<ul>
+    <li><strong>Rezervacije skupaj:</strong> @Model.RezervacijeSkupaj</li>
+    <li><strong>Rezervacije ta mesec:</strong> @Model.RezervacijeMesec</li>
+
+    <li>
+        <strong>Povprečna ocena:</strong>
+        @if (Model.PovprecnaOcena.HasValue)
+        {
+            @Model.PovprecnaOcena.Value.ToString("0.0") <text>/ 5</text>
+        }
+        else
+        {
+            <text>Še ni ocen</text>
+        }
+    </li>
+</ul>
+
+<p style="margin-top:15px;">
+    <a asp-page="/Trener/Statistika">Osveži</a>
+</p>

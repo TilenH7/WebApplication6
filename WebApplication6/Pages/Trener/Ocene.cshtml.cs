@@ -9,6 +9,8 @@ namespace WebApplication6.Pages.Trener
 {
     public class OceneModel : PageModel
     {
+        public double? PovprecnaOcena { get; set; }
+
         public List<OcenaTrenerja> Ocene { get; set; } = new();
 
         [BindProperty(SupportsGet = true)]
@@ -16,11 +18,15 @@ namespace WebApplication6.Pages.Trener
 
         public IActionResult OnGet()
         {
+
             var trener = HttpContext.Session.GetString("Username");
             if (string.IsNullOrEmpty(trener))
                 return RedirectToPage("/Login");
 
-            var query = FakeOceneDb.Ocene.Where(o => o.TrenerUsername == trener);
+            var vseOcene = FakeOceneDb.Ocene.Where(o => o.TrenerUsername == trener).ToList();
+            PovprecnaOcena = vseOcene.Any() ? vseOcene.Average(o => o.Ocena) : (double?)null;
+
+            var query = vseOcene.AsQueryable();
 
             if (FilterOcena.HasValue && FilterOcena.Value >= 1 && FilterOcena.Value <= 5)
                 query = query.Where(o => o.Ocena == FilterOcena.Value);

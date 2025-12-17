@@ -18,9 +18,18 @@
 
 <hr />
 
+@if (Model.PovprecnaOcena.HasValue)
+{
+    <p><strong>Povprečna ocena:</strong> @Model.PovprecnaOcena.Value.ToString("0.0") / 5</p>
+}
+else
+{
+    <p>Še ni ocen.</p>
+}
+
 @if (!Model.Ocene.Any())
 {
-    <p>Ni ocen.</p>
+    <p>Ni ocen za prikaz (glede na izbran filter).</p>
 }
 else
 {

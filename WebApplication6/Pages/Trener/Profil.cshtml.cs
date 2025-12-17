@@ -48,6 +48,11 @@ namespace WebApplication6.Pages.Trener
                     .Take(3)
                     .ToList();
             }
+            else
+            {
+                PovprecnaOcena = null;
+                ZadnjeOcene = new();
+            }
 
             // prihajajoči termini
             PrihajajociTermini = FakeTerminDb.Termini

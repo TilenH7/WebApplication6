@@ -11,7 +11,8 @@ namespace WebApplication6.Models
         public int Ocena { get; set; } // 1–5
         public string Komentar { get; set; }
 
-        public DateTime Datum { get; set; }
+        public DateTime Datum { get; set; } = DateTime.Now;
+
     }
 
     public static class FakeOceneDb

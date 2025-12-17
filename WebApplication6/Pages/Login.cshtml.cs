@@ -20,6 +20,7 @@ public class LoginModel : PageModel
 
     public IActionResult OnPost()
     {
+    
         var user = FakeUserDb.Users
             .FirstOrDefault(u => u.Username == Username && u.Password == Password);
 
@@ -28,6 +29,8 @@ public class LoginModel : PageModel
             ErrorMessage = "Napaèno uporabniško ime ali geslo.";
             return Page();
         }
+
+
 
         // shrani v session
         HttpContext.Session.SetString("Username", user.Username);

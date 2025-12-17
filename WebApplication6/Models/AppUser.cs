@@ -13,8 +13,11 @@ namespace WebApplication6.Models
         public string Username { get; set; }      // ostane za login
         public string Password { get; set; }      // za prototip OK plain text
         public string Ime { get; set; }           // novo obvezno polje
+        public string Priimek { get; set; }
         public string Email { get; set; }         // novo obvezno polje
         public UserRole Role { get; set; }
+        public string Lokacija { get; set; }
+        public string Telefon { get; set; }
     }
 
     public static class FakeUserDb
@@ -26,6 +29,7 @@ namespace WebApplication6.Models
                 Username = "trener1",
                 Password = "test123",
                 Ime = "Trener Prvi",
+                Priimek = "Novak",
                 Email = "trener1@test.com",
                 Role = UserRole.Trener
             },
@@ -34,9 +38,11 @@ namespace WebApplication6.Models
                 Username = "user1",
                 Password = "test123",
                 Ime = "Uporabnik Prvi",
+                Priimek = "Horvat",
                 Email = "user1@test.com",
                 Role = UserRole.Uporabnik
             }
         };
     }
+
 }

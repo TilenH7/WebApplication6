@@ -1,0 +1,57 @@
+﻿@page
+@model WebApplication6.Pages.Uporabnik.UrediProfilModel
+
+<h2>Uredi uporabniški profil</h2>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <p style="color:red">@Model.ErrorMessage</p>
+}
+
+@if (!string.IsNullOrEmpty(Model.SuccessMessage))
+{
+    <p style="color:green">@Model.SuccessMessage</p>
+}
+
+<form method="post">
+    <div>
+        <label>Ime</label>
+        <input asp-for="Ime" />
+    </div>
+
+    <div>
+        <label>Priimek</label>
+        <input asp-for="Priimek" />
+    </div>
+
+    <div>
+        <label>Lokacija</label>
+        <input asp-for="Lokacija" />
+    </div>
+
+    <div>
+        <label>E-pošta</label>
+        <input asp-for="Email" />
+    </div>
+
+    <div>
+        <label>Telefon</label>
+        <input asp-for="Telefon" />
+    </div>
+
+    <hr />
+
+    <h3>Sprememba gesla (neobvezno)</h3>
+
+    <div>
+        <label>Staro geslo</label>
+        <input asp-for="StaroGeslo" type="password" />
+    </div>
+
+    <div>
+        <label>Novo geslo (min 6 znakov)</label>
+        <input asp-for="NovoGeslo" type="password" />
+    </div>
+
+    <button type="submit">Shrani</button>
+</form>

@@ -15,6 +15,9 @@ namespace WebApplication6.Models
 
         // 💰 NOVO
         public decimal Cena { get; set; } = 10m;
+        public string TipVadbe { get; set; } = "Kardio"; // npr. Kardio, Moč, Joga...
+        public int TrajanjeMin { get; set; } = 60;       // npr. 60 = 1h
+
     }
 
     public static class FakeTerminDb
@@ -29,7 +32,10 @@ namespace WebApplication6.Models
                 Lokacija = "Ljubljana - vnaprej definiran termin",
                 Kapaciteta = 10,
                 ZasedenaMesta = 0,
-                Cena = 15m
+                Cena = 15m,
+                TipVadbe = "Moč",
+                TrajanjeMin = 60,
+
             },
             new TerminVadbe
             {
@@ -39,7 +45,10 @@ namespace WebApplication6.Models
                 Lokacija = "Maribor",
                 Kapaciteta = 10,
                 ZasedenaMesta = 0,
-                Cena = 12m
+                Cena = 12m,
+                TipVadbe = "Moč",
+                TrajanjeMin = 60,
+
             }
         };
     }

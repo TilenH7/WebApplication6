@@ -60,7 +60,10 @@ namespace WebApplication6.Pages.Trener
                 TrenerUsername = HttpContext.Session.GetString("Username"),
                 DatumInCas = DatumInCas,
                 Lokacija = Lokacija,
-                Cena = Cena
+                Cena = Cena,
+                TipVadbe = "Kardio",
+                TrajanjeMin = 60,
+
             };
 
             FakeTerminDb.Termini.Add(termin);

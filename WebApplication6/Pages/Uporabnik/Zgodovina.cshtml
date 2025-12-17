@@ -1,0 +1,82 @@
+﻿@page
+@model WebApplication6.Pages.Uporabnik.ZgodovinaModel
+
+<h2>Moja osebna zgodovina</h2>
+<p>Uporabnik: <strong>@Model.Username</strong></p>
+
+<h3>Skupaj ur končanih vadb</h3>
+
+@if (!Model.ZakljuceniTermini.Any())
+{
+    <p>0 ur – še nisi zaključil nobene vadbe.</p>
+}
+else
+{
+    <p><strong>@Model.SkupajUr.ToString("0.0")</strong> ur</p>
+}
+
+<hr />
+
+<h3>Zaključeni termini</h3>
+
+@if (!Model.ZakljuceniTermini.Any())
+{
+    <p>Ni zaključenih terminov.</p>
+}
+else
+{
+    <table border="1" cellpadding="5">
+        <thead>
+            <tr>
+                <th>Datum in čas</th>
+                <th>Tip vadbe</th>
+                <th>Trajanje</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var t in Model.ZakljuceniTermini)
+            {
+                <tr>
+                    <td>@t.DatumInCas.ToString("dd.MM.yyyy HH:mm")</td>
+                    <td>@t.TipVadbe</td>
+                    <td>@(t.TrajanjeMin / 60.0).ToString("0.#") h</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<hr />
+
+<h3>Statistika po tipih</h3>
+
+@if (!Model.StatistikaPoTipih.Any())
+{
+    <p>Ni podatkov.</p>
+}
+else
+{
+    <table border="1" cellpadding="5">
+        <thead>
+            <tr>
+                <th>Tip vadbe</th>
+                <th>Število vadb</th>
+                <th>Skupaj ur</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var kv in Model.StatistikaPoTipih)
+            {
+                var tip = kv.Key;
+                var count = kv.Value.Count;
+                var totalHours = kv.Value.TotalMinutes / 60.0;
+
+                <tr>
+                    <td>@tip</td>
+                    <td>@count</td>
+                    <td>@totalHours.ToString("0.0")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

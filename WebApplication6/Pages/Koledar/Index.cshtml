@@ -1,0 +1,72 @@
+﻿@page
+@model WebApplication6.Pages.Koledar.IndexModel
+
+<h2>Koledar terminov</h2>
+
+<div style="margin-bottom:10px;">
+    <a asp-page="/Koledar/Index" asp-route-year="@(Model.Month == 1 ? Model.Year - 1 : Model.Year)"
+       asp-route-month="@(Model.Month == 1 ? 12 : Model.Month - 1)">⬅ Prejšnji</a>
+
+    <strong style="margin:0 15px;">@Model.MonthName()</strong>
+
+    <a asp-page="/Koledar/Index" asp-route-year="@(Model.Month == 12 ? Model.Year + 1 : Model.Year)"
+       asp-route-month="@(Model.Month == 12 ? 1 : Model.Month + 1)">Naslednji ➡</a>
+</div>
+
+<table border="1" cellpadding="8" style="width:100%; table-layout:fixed;">
+    <thead>
+        <tr>
+            <th>Pon</th><th>Tor</th><th>Sre</th><th>Čet</th><th>Pet</th><th>Sob</th><th>Ned</th>
+        </tr>
+    </thead>
+  <tbody>
+@{
+    int cell = 0;
+    int day = 1;
+    int totalCells = Model.StartOffset + Model.DaysInMonth;
+    int rows = (int)System.Math.Ceiling(totalCells / 7.0);
+
+    for (int r = 0; r < rows; r++)
+    {
+        <tr>
+        @for (int c = 0; c < 7; c++)
+        {
+            if (cell < Model.StartOffset || day > Model.DaysInMonth)
+            {
+                <td style="height:110px; vertical-align:top; background:#f7f7f7;"></td>
+            }
+            else
+            {
+                var date = new System.DateTime(Model.Year, Model.Month, day);
+
+                <td style="height:110px; vertical-align:top;">
+                    <div><strong>@day</strong></div>
+
+                    @if (Model.TerminiPoDnevih.TryGetValue(date, out var list))
+                    {
+                        <ul style="padding-left:18px; margin:4px 0;">
+                        @foreach (var t in list)
+                        {
+                            <li>
+                                @t.DatumInCas.ToString("HH:mm") - @t.Lokacija<br />
+                                <small>Trener: @t.TrenerUsername</small>
+                                <small>Zasedenost: @t.ZasedenaMesta / @t.Kapaciteta</small>
+                                <small>Prijave:@(Model.SteviloPrijav.ContainsKey(t.Id) ? Model.SteviloPrijav[t.Id] : 0)</small>
+                            </li>
+                        }
+                        </ul>
+                    }
+                </td>
+
+                day++;
+            }
+
+            cell++;
+        }
+        </tr>
+    }
+}
+</tbody>
+
+
+</table>

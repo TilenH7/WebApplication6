@@ -20,9 +20,12 @@ public class LoginModel : PageModel
 
     public IActionResult OnPost()
     {
-    
-        var user = FakeUserDb.Users
-            .FirstOrDefault(u => u.Username == Username && u.Password == Password);
+
+        var user = FakeUserDb.Users.FirstOrDefault(u =>
+    (u.Username == Username || u.Email == Username) &&
+    u.Password == Password
+);
+
 
         if (user == null)
         {

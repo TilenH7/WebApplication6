@@ -22,6 +22,9 @@ namespace WebApplication6.Pages
 
         public IActionResult OnPost()
         {
+            Ime = Ime?.Trim();
+            Email = Email?.Trim();
+
             if (string.IsNullOrWhiteSpace(Ime) ||
                 string.IsNullOrWhiteSpace(Email) ||
                 string.IsNullOrWhiteSpace(Password))
@@ -30,23 +33,31 @@ namespace WebApplication6.Pages
                 return Page();
             }
 
-            if (FakeUserDb.Users.Any(u => u.Email.ToLower() == Email.ToLower()))
+            if (FakeUserDb.Users.Any(u => u.Email.Equals(Email, StringComparison.OrdinalIgnoreCase)))
             {
                 ErrorMessage = "Uporabnik s tem e-mailom že obstaja.";
                 return Page();
             }
 
+            if (FakeUserDb.Users.Any(u => u.Username != null &&
+                                          u.Username.Equals(Ime, StringComparison.OrdinalIgnoreCase)))
+            {
+                ErrorMessage = "To uporabniško ime je že uporabljeno.";
+                return Page();
+            }
+
             FakeUserDb.Users.Add(new AppUser
             {
-                Username = Email,
+                Username = Ime,
                 Ime = Ime,
                 Email = Email,
                 Password = Password,
-                Role = Role   // ⚡️ vzame iz izbranega v formu
+                Role = Role
             });
 
             SuccessMessage = "Registracija uspešna. Zdaj se lahko prijaviš.";
             return Page();
         }
+
     }
 }

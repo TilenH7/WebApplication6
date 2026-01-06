@@ -60,7 +60,7 @@ namespace WebApplication6.Pages.Trener
             trener.SlikaUrl = SlikaUrl;
 
             // preusmeritev na profil → posodobljeni podatki takoj vidni
-            return RedirectToPage("/Trener/Profil", new { trener = username });
+            return RedirectToPage("/Trener/Profil", new { trenerUsername = username });
         }
     }
 }

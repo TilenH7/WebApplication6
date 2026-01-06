@@ -39,7 +39,8 @@ namespace WebApplication6.Pages.Uporabnik
             }
 
             // nazaj na profil trenerja
-            return RedirectToPage("/Trener/Profil", new { trener = trenerUsername });
+            return RedirectToPage("/Trener/Profil", new { trenerUsername });
+
         }
     }
 }

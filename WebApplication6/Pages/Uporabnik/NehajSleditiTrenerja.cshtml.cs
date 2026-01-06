@@ -27,7 +27,7 @@ namespace WebApplication6.Pages.Uporabnik
             if (redirectTo == "lista")
                 return RedirectToPage("/Uporabnik/SledeniTrenerji");
 
-            return RedirectToPage("/Trener/Profil", new { trener = trenerUsername });
+            return RedirectToPage("/Trener/Profil", new { trenerUsername });
         }
     }
 }

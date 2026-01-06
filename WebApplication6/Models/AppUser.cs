@@ -26,16 +26,16 @@ namespace WebApplication6.Models
         {
             new AppUser
             {
-                Username = "trener1",
+                Username = "Uroš",
                 Password = "test123",
-                Ime = "Trener Prvi",
+                Ime = "Uros",
                 Priimek = "Novak",
                 Email = "trener1@test.com",
                 Role = UserRole.Trener
             },
             new AppUser
             {
-                Username = "user1",
+                Username = "Marko",
                 Password = "test123",
                 Ime = "Uporabnik Prvi",
                 Priimek = "Horvat",

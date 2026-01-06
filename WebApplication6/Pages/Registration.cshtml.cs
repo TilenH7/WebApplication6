@@ -46,6 +46,7 @@ namespace WebApplication6.Pages
                 return Page();
             }
 
+            // 1) Dodaj v Users (login baza)
             FakeUserDb.Users.Add(new AppUser
             {
                 Username = Ime,
@@ -55,9 +56,25 @@ namespace WebApplication6.Pages
                 Role = Role
             });
 
+            // 2) Če je trener, dodaj še v FakeTrenerDb (profil baza)
+            if (Role == UserRole.Trener)
+            {
+                FakeTrenerDb.Trenerji.Add(new TrenerProfile
+                {
+                    Username = Ime,                 // mora se ujemat s TrenerUsername in route paramom
+                    Ime = Ime,                      // prikazno ime (zaenkrat isto)
+                    Opis = "Nov trener - brez opisa.",
+                    Specializacije = "Ni določeno",
+                    Lokacija = "Ni določeno",
+                    CenaNaUro = null,
+                    SlikaUrl = null
+                });
+            }
+
             SuccessMessage = "Registracija uspešna. Zdaj se lahko prijaviš.";
             return Page();
         }
+
 
     }
 }

@@ -3,7 +3,7 @@ using WebApplication6.Models;
 using System.Linq;
 using System.Collections.Generic;
 using System;
-using Microsoft.AspNetCore.Http; // ⬅️ DODAJ TO
+using Microsoft.AspNetCore.Http;
 
 namespace WebApplication6.Pages.Trener
 {
@@ -24,11 +24,15 @@ namespace WebApplication6.Pages.Trener
         public bool JePrijavljenUporabnik { get; set; }
         public bool TrenutniUporabnikSledi { get; set; }
 
-        public void OnGet(string trener)
+        // ✅ KLJUČNO: ime parametra mora biti trenerUsername
+        public void OnGet(string trenerUsername )
         {
+            if (string.IsNullOrWhiteSpace(trenerUsername))
+                return;
+
             // osnovni podatki
             Trener = FakeTrenerDb.Trenerji
-                .FirstOrDefault(t => t.Username == trener);
+                .FirstOrDefault(t => t.Username == trenerUsername);
 
             if (Trener == null)
             {
@@ -37,7 +41,7 @@ namespace WebApplication6.Pages.Trener
 
             // ocene
             var oceneTrenerja = FakeOceneDb.Ocene
-                .Where(o => o.TrenerUsername == trener)
+                .Where(o => o.TrenerUsername == trenerUsername)
                 .ToList();
 
             if (oceneTrenerja.Any())
@@ -56,14 +60,14 @@ namespace WebApplication6.Pages.Trener
 
             // prihajajoči termini
             PrihajajociTermini = FakeTerminDb.Termini
-                .Where(t => t.TrenerUsername == trener &&
+                .Where(t => t.TrenerUsername == trenerUsername &&
                             t.DatumInCas >= DateTime.Now)
                 .OrderBy(t => t.DatumInCas)
                 .ToList();
 
             // 💰 cene iz terminov
             var terminiSCenami = FakeTerminDb.Termini
-                .Where(t => t.TrenerUsername == trener && t.Cena > 0)
+                .Where(t => t.TrenerUsername == trenerUsername && t.Cena > 0)
                 .ToList();
 
             if (terminiSCenami.Any())
@@ -87,7 +91,7 @@ namespace WebApplication6.Pages.Trener
 
                 TrenutniUporabnikSledi = FakeSledenjeDb.Sledenja
                     .Any(s => s.UporabnikUsername == username &&
-                              s.TrenerUsername == trener);
+                              s.TrenerUsername == trenerUsername);
             }
         }
     }
